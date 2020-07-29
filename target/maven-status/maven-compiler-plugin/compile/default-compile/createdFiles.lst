@@ -1,2 +1,7 @@
 org\example\MyUI.class
 org\example\MyUI$MyUIServlet.class
+org\example\Sidebar.class
+org\example\User.class
+org\example\Konstanten.class
+org\example\LoginControl.class
+org\example\StartseiteView.class
