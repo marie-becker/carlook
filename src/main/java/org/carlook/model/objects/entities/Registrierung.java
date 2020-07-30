@@ -2,17 +2,18 @@ package org.carlook.model.objects.entities;
 
 public class Registrierung {
 
-    private String name;
+    private String vorname;
+    private String nachname;
     private String email;
     private String pw;
     private String rolle;
 
-    public String getName() {
-        return name;
+    public String getVorname() {
+        return vorname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
     }
 
     public String getEmail() {
@@ -37,5 +38,13 @@ public class Registrierung {
 
     public void setRolle(String rolle) {
         this.rolle = rolle;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
     }
 }

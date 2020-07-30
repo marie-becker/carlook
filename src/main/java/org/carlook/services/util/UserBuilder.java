@@ -16,10 +16,15 @@ public class UserBuilder {
         return builder;
     }
 
-    public UserBuilder withName(String name){
-        this.user.setName(name);
+    public UserBuilder withVorname(String vorname){
+        this.user.setVorname(vorname);
         return this;
     }
+    public UserBuilder withNachname(String nachname){
+        this.user.setNachname(nachname);
+        return this;
+    }
+
     public UserBuilder withEmail(String email){
         this.user.setEmail(email);
         return this;
@@ -30,7 +35,7 @@ public class UserBuilder {
     }
 
     public UserBuilder with2ndPw(String pw){
-        this.user.setPw(pw);
+        this.user.setPw2(pw);
         return this;
     }
 

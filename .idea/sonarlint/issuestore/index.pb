@@ -622,3 +622,7 @@ s
 Csrc/main/java/org/carlook/model/objects/entities/Registrierung.java,0\d\0d8491bd7bb7949d7505655b3927b1c5259b2ec5
 q
 Asrc/main/java/org/carlook/model/objects/factories/RegFactory.java,2\e\2e0c01c236632071257cd97d04921740817a8fd2
+l
+<src/main/java/org/carlook/model/objects/dao/AbstractDAO.java,7\f\7fa0e1d5dbea0780afdf94fb89b89fadd4620e42
+j
+:src/main/java/org/carlook/model/objects/dao/ProfilDAO.java,6\c\6c830c90631b62f4f71f019b6ef82eac639bff21

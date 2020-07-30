@@ -25,8 +25,8 @@ public class LoginControl {
 
         try(ResultSet set = statement.executeQuery()){
             if(set.next()){
-                user.setId(set.getInt(1));
-                user.setName(set.getString(2));
+                user.setVorname(set.getString(1));
+                user.setNachname(set.getString(2));
                 user.setEmail(set.getString(3));
                 user.setPw(set.getString(4));
                 user.setRole(set.getString(5));
@@ -37,11 +37,6 @@ public class LoginControl {
             Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
         }
         VaadinSession.getCurrent().setAttribute(Roles.CURRENT, user);
-
-
-
-
-
 
     }
 }

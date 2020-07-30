@@ -6,6 +6,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+import org.carlook.gui.views.RegView;
 import org.carlook.gui.views.StartseiteView;
 import org.carlook.services.util.Konstanten;
 
@@ -29,6 +30,7 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         navi = new Navigator(this, this);
         navi.addView(Konstanten.START, StartseiteView.class);
+        navi.addView(Konstanten.REGISTER, RegView.class);
         UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
     }
 

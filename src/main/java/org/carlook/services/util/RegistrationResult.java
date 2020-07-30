@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 public class RegistrationResult {
 
     public enum FailureType{ NAME_MISSING, EMAIL_MISSING, EMAIL_INVALID, EMAIL_EXISTS, PW_MISSING,
-    NAME_AND_EMAIL_MISSING, NAME_AND_PW_MISSING, EMAIL_AND_PW_MISSING,
-    PW_TOO_SHORT, PWS_DONT_MATCH}
+    //NAME_AND_EMAIL_MISSING, NAME_AND_PW_MISSING, EMAIL_AND_PW_MISSING,
+    PW_TOO_SHORT, PWS_DONT_MATCH, NO_ROLE}
 
     private FailureType failureType;
     private boolean result;
@@ -33,6 +33,8 @@ public class RegistrationResult {
                     return "Passwort zu kurz! Mind. 8 Zeichen notwendig!";
                 case PWS_DONT_MATCH:
                     return "Die eingegebenen Passwörter stimmen nicht überein!";
+                case NO_ROLE:
+                    return "Wählen sie eine Profilart aus!";
                 default:
                     return null;
             }

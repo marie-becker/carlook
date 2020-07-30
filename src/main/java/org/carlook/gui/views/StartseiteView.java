@@ -4,9 +4,11 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.carlook.process.control.LoginControl;
 import org.carlook.process.control.exceptions.DatabaseException;
 import org.carlook.process.control.exceptions.NoSuchUserOrPassword;
+import org.carlook.services.util.Konstanten;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -51,19 +53,19 @@ public class StartseiteView extends VerticalLayout implements View {
                 Logger.getLogger(StartseiteView.class.getName()).log(Level.SEVERE, null, sqlException);            }
         });
 
-        /*
+
         VerticalLayout register = new VerticalLayout();
         Label regis = new Label("Noch kein Konto? Registrieren Sie sich");
         Button signUp = new Button("hier", e->{
-            UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
+            UI.getCurrent().getNavigator().navigateTo(Konstanten.REGISTER);
         });
         signUp.addStyleName(ValoTheme.BUTTON_LINK);
         register.addComponents(regis, signUp);
 
-         */
 
 
-        login.addComponents(email, pw, signin);
+
+        login.addComponents(email, pw, register, signin);
         login.setComponentAlignment(signin, Alignment.MIDDLE_CENTER);
         panel.setContent(login);
 

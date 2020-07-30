@@ -7,6 +7,7 @@ import org.carlook.model.objects.factories.RegFactory;
 import org.carlook.process.control.exceptions.DatabaseException;
 import org.carlook.services.db.JDBCConnection;
 import org.carlook.services.util.RegistrationResult;
+import org.carlook.services.util.Roles;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +33,11 @@ public class RegistrationControl {
         String rolle = request.getRole();
 
         reg = RegFactory.createReg(request);
+
+        if(request.getRole().equals("") || request.getRole() == null){
+            result.setReason(RegistrationResult.FailureType.NO_ROLE);
+            result.setResult(false);
+        }
 
         if(!request.getPw2().equals(request.getPw())){
             result.setReason(RegistrationResult.FailureType.PWS_DONT_MATCH);
@@ -63,13 +69,14 @@ public class RegistrationControl {
             result.setReason(RegistrationResult.FailureType.EMAIL_MISSING);
             result.setResult(false);
         }
-        if(request.getName() == null || request.getName().equals("")){
+        if(request.getVorname() == null || request.getVorname().equals("")){
             result.setReason(RegistrationResult.FailureType.NAME_MISSING);
             result.setResult(false);
         }
 
         if(result.getResult()){
-            ProfilDAO.getInstance().registerUser(reg);
+            if(rolle.equals(Roles.KUNDE)) ProfilDAO.getInstance().registerKunde(reg);
+            if(rolle.equals(Roles.VERTRIEBLER)) ProfilDAO.getInstance().registerVer(reg);
         }
 
         return result;

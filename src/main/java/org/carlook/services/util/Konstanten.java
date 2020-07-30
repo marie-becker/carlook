@@ -6,4 +6,5 @@ public class Konstanten {
     }
 
     public static final String START = "Startseite";
+    public static final String REGISTER = "Registrierung";
 }

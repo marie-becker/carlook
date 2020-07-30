@@ -10,7 +10,8 @@ public class RegFactory {
 
     public static Registrierung createReg(User request){
         Registrierung reg = new Registrierung();
-        reg.setName(request.getName());
+        reg.setVorname(request.getVorname());
+        reg.setNachname(request.getNachname());
         reg.setEmail(request.getEmail());
         reg.setPw(request.getPw());
         reg.setRolle(request.getRole());
