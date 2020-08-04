@@ -42,7 +42,6 @@ public class StartseiteView extends VerticalLayout implements View {
 
             try {
                 LoginControl.checkAuthentication(emailIn, pwIn);
-                Notification.show("Login erfolgreich! :D", Notification.Type.ERROR_MESSAGE);
             }catch(NoSuchUserOrPassword nsup){
                 Notification.show("Benutzerfehler", "Email-Adresse oder Passwort falsch!", Notification.Type.ERROR_MESSAGE);
                 email.setValue("");
@@ -54,19 +53,23 @@ public class StartseiteView extends VerticalLayout implements View {
         });
 
 
-        VerticalLayout register = new VerticalLayout();
+        HorizontalLayout register = new HorizontalLayout();
         Label regis = new Label("Noch kein Konto? Registrieren Sie sich");
         Button signUp = new Button("hier", e->{
             UI.getCurrent().getNavigator().navigateTo(Konstanten.REGISTER);
         });
         signUp.addStyleName(ValoTheme.BUTTON_LINK);
+        signUp.addStyleName("here-button");
+        signUp.setWidthUndefined();
         register.addComponents(regis, signUp);
-
-
+        register.setComponentAlignment(regis, Alignment.MIDDLE_CENTER);
+        register.setComponentAlignment(signUp, Alignment.MIDDLE_CENTER);
 
 
         login.addComponents(email, pw, register, signin);
         login.setComponentAlignment(signin, Alignment.MIDDLE_CENTER);
+        login.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
+        login.setComponentAlignment(pw, Alignment.MIDDLE_CENTER);
         panel.setContent(login);
 
         this.addComponent(panel);

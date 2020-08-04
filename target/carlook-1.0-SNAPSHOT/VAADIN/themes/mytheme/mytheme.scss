@@ -66,13 +66,27 @@ $v-component-group-spacing: 6px;
     -ms-overflow-y: auto;
   }
 
-  .v-caption-start_header .v-captiontext{
+  .v-caption-start_header .v-captiontext {
     color: #2891d9;
     font-size: 40px;
     text-align: center;
     position: center;
     font-family: "Helvetica Neue";
-    text-shadow: 1px 1px 1px black;
-
+    text-shadow: 1px 1px 1px black
   }
+
+  .register_here{
+      font-size: 10px;
+  }
+
+  .here-button {
+    height: auto;
+    padding: 0px;
+  }
+
+  .header-suche {
+    font-size: 35px;
+    line-height: normal;
+  }
+
 }

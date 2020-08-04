@@ -15419,3 +15419,17 @@ div.v-layout.v-horizontal.v-widget {
 	font-family: "Helvetica Neue";
 	text-shadow: 1px 1px 1px black;
 }
+
+.mytheme .register_here {
+	font-size: 10px;
+}
+
+.mytheme .here-button {
+	height: auto;
+	padding: 0px;
+}
+
+.mytheme .header-suche {
+	font-size: 35px;
+	line-height: normal;
+}

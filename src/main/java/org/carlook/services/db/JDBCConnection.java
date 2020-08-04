@@ -39,7 +39,7 @@ public class JDBCConnection {
         try {
             Properties props = new Properties();
             props.setProperty("user", login);
-            props.setProperty("password", login);
+            props.setProperty("password", "ikaros2412");
 
             this.conn = DriverManager.getConnection(this.url, props);
 

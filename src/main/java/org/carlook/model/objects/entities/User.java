@@ -9,6 +9,8 @@ public class User {
     private String vorname;
     private String nachname;
     private String role;
+    private int kundeId;
+    private int verId;
 
     public int getId() {
         return id;
@@ -64,5 +66,21 @@ public class User {
 
     public void setNachname(String nachname) {
         this.nachname = nachname;
+    }
+
+    public int getKundeId() {
+        return kundeId;
+    }
+
+    public void setKundeId(int kundeId) {
+        this.kundeId = kundeId;
+    }
+
+    public int getVerId() {
+        return verId;
+    }
+
+    public void setVerId(int verId) {
+        this.verId = verId;
     }
 }

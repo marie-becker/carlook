@@ -1,11 +1,13 @@
 package org.carlook.process.control;
 
 import com.vaadin.server.VaadinSession;
-import org.carlook.services.util.Roles;
-import org.carlook.services.db.JDBCConnection;
+import com.vaadin.ui.UI;
 import org.carlook.model.objects.entities.User;
 import org.carlook.process.control.exceptions.DatabaseException;
 import org.carlook.process.control.exceptions.NoSuchUserOrPassword;
+import org.carlook.services.db.JDBCConnection;
+import org.carlook.services.util.Konstanten;
+import org.carlook.services.util.Roles;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,13 +32,19 @@ public class LoginControl {
                 user.setEmail(set.getString(3));
                 user.setPw(set.getString(4));
                 user.setRole(set.getString(5));
+                user.setId(set.getInt(6));
+                if(user.getRole().equals("kunde")) user.setKundeId(set.getInt(7));
+                if(user.getRole().equals("vertriebler")) user.setVerId(set.getInt(8));
             }else{
                 throw new NoSuchUserOrPassword();
             }
         }catch(SQLException ex){
             Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        VaadinSession.getCurrent().setAttribute(Roles.CURRENT, user);
 
+        VaadinSession.getCurrent().setAttribute(Roles.CURRENT, user);
+        if(user.getRole().equals("kunde")){
+            UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
+        }
     }
 }
