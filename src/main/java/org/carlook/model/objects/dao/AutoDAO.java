@@ -25,8 +25,8 @@ public class AutoDAO extends AbstractDAO {
     }
 
     public PreparedStatement getStatement(String marke, String baujahr) throws SQLException {
-        marke = "%"+marke.toUpperCase()+"%";
-        baujahr = "%"+baujahr+"%";
+        if(!marke.equals("")) marke = "%"+marke.toUpperCase()+"%";
+        if(!baujahr.equals("")) baujahr = "%"+baujahr+"%";
         String allCars = "SELECT * FROM carlook.auto";
         PreparedStatement statement;
 
@@ -90,7 +90,7 @@ public class AutoDAO extends AbstractDAO {
     }
 
     public List<Auto> getMyRsvAutos(int kundeId) throws SQLException {
-        String sql = "SELECT * FROM carlook.auto a and carlook.kunde_rsv_auto k WHERE a.kunde_id = k.kunde_id AND k.kunde_id = ?";
+        String sql = "SELECT * FROM carlook.auto a INNER JOIN carlook.kunde_rsv_auto k ON a.auto_id = k.auto_id WHERE k.kunde_id = ?";
         PreparedStatement statement = this.getPreparedStatement(sql);
         List<Auto> autoList = new ArrayList<>();
         statement.setInt(1,kundeId);

@@ -5,6 +5,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.carlook.gui.components.TopPanel;
 import org.carlook.process.control.LoginControl;
 import org.carlook.process.control.exceptions.DatabaseException;
 import org.carlook.process.control.exceptions.NoSuchUserOrPassword;
@@ -20,7 +21,9 @@ public class StartseiteView extends VerticalLayout implements View {
         this.setUp();}
 
     public void setUp(){
-        this.setSizeFull();
+        TopPanel topPanel = new TopPanel();
+        this.addComponent(topPanel);
+
         Label spacer = new Label("&nbsp", ContentMode.HTML);
 
         VerticalLayout login = new VerticalLayout();

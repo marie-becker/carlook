@@ -1,17 +1,20 @@
 package org.carlook.gui.views;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
-import com.vaadin.ui.themes.ValoTheme;
+import org.carlook.gui.windows.ConfirmationWindow;
 import org.carlook.model.objects.Auto;
 import org.carlook.model.objects.dao.AutoDAO;
 import org.carlook.model.objects.entities.User;
+import org.carlook.process.control.LoginControl;
 import org.carlook.services.util.Konstanten;
 import org.carlook.services.util.Roles;
+import org.carlook.gui.components.TopPanel;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,15 +27,39 @@ public class SucheView extends VerticalLayout implements View {
     VerticalLayout content = new VerticalLayout();
     Label pageTitle;
     HorizontalLayout suchFelder;
+    MenuBar bar;
+    HorizontalLayout heading;
+    TopPanel toppanel;
 
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
-        if(user == null || user.getRole().equals(Roles.VERTRIEBLER)) UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
+        if(user == null || !user.getRole().equals(Roles.KUNDE)) UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
         else this.setUp();
     }
 
     public void setUp() {
-        this.setSizeFull();
+        toppanel = new TopPanel();
+        this.addComponent(toppanel);
+
+        /*
+        bar = new MenuBar();
+        MenuBar.MenuItem item1 = bar.addItem("Menü", null);
+
+        //Logout des Users
+        item1.addItem("Logout", VaadinIcons.SIGN_OUT, new MenuBar.Command() {
+            public void menuSelected(MenuBar.MenuItem selectedItem) {
+                LoginControl.logoutUser();
+            }
+        });
+
+        item1.addItem("Reservierungen", VaadinIcons.LIST, new MenuBar.Command() {
+            public void menuSelected(MenuBar.MenuItem menuItem) {
+                UI.getCurrent().getNavigator().navigateTo(Konstanten.RSV_AUTOS);
+            }
+        });
+
+
+         */
 
         pageTitle = new Label();
         pageTitle.setCaption("Autosuche");
@@ -53,17 +80,27 @@ public class SucheView extends VerticalLayout implements View {
         suchFelder = new HorizontalLayout();
         suchFelder.addComponents(markeFeld, baujahrFeld);
 
-        content.addComponents(pageTitle, new Label("&nbsp", ContentMode.HTML), suchFelder);
+        /*
+        heading = new HorizontalLayout();
+        heading.addComponents(pageTitle, bar);
+        heading.setComponentAlignment(pageTitle, Alignment.TOP_LEFT);
+        heading.setComponentAlignment(bar, Alignment.TOP_RIGHT);
+
+         */
+
+        content.addComponents(new Label("&nbsp", ContentMode.HTML), suchFelder);
+
 
         //Erstmal alle Autos anzeigen lassen
         onTheFly("", "");
         this.addComponent(content);
+        this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
 
     public void onTheFly(String marke, String baujahr){
         //Erstellung Tabelle mit Jobangeboten
         content.removeAllComponents();
-        content.addComponents(pageTitle, new Label("&nbsp", ContentMode.HTML), suchFelder);
+        content.addComponents(toppanel, new Label("&nbsp", ContentMode.HTML), suchFelder);
 
         Grid<Auto> autoGrid = new Grid<>();
         autoGrid.setSizeUndefined();

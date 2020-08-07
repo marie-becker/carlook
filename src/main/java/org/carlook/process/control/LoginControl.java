@@ -1,5 +1,6 @@
 package org.carlook.process.control;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 import org.carlook.model.objects.entities.User;
@@ -46,5 +47,10 @@ public class LoginControl {
         if(user.getRole().equals("kunde")){
             UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
         }
+    }
+
+    public static void logoutUser() {
+        UI.getCurrent().getSession().close();
+        UI.getCurrent().getPage().setLocation("/carlook");
     }
 }

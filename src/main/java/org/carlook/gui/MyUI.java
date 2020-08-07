@@ -7,6 +7,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import org.carlook.gui.views.RegView;
+import org.carlook.gui.views.ReservierteAutosView;
 import org.carlook.gui.views.StartseiteView;
 import org.carlook.gui.views.SucheView;
 import org.carlook.services.util.Konstanten;
@@ -32,6 +33,7 @@ public class MyUI extends UI {
         navi.addView(Konstanten.START, StartseiteView.class);
         navi.addView(Konstanten.REGISTER, RegView.class);
         navi.addView(Konstanten.SUCHE, SucheView.class);
+        navi.addView(Konstanten.RSV_AUTOS, ReservierteAutosView.class);
         UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
     }
 

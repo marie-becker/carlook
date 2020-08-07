@@ -8,4 +8,6 @@ public class Konstanten {
     public static final String START = "Startseite";
     public static final String REGISTER = "Registrierung";
     public static final String SUCHE = "Autosuche";
+    public static final String RSV_AUTOS = "Meine reservierten Autos";
+    public static final String MAIN = "Main";
 }
