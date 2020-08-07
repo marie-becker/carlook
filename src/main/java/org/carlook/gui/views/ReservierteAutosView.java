@@ -45,14 +45,16 @@ public class ReservierteAutosView extends VerticalLayout implements View {
         }
 
         autoGrid.removeAllColumns();
-        autoGrid.setCaption("Meine reservierten Autos:");
+        autoGrid.setCaption("Meine reservierten Autos:"); //TODO Schrift größer
         autoGrid.setItems(autos);
         autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
 
-        autoGrid.addColumn(Auto::getAutoid).setCaption("Auto-ID"); //TODO später raus
-        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke");
-        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr");
+
+        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
+        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
         autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
+
+        autoGrid.setWidth("100%");
 
         this.addComponent(autoGrid);
     }

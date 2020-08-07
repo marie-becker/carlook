@@ -1,6 +1,5 @@
 package org.carlook.process.control;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 import org.carlook.model.objects.entities.User;
@@ -17,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginControl {
+
+    //TODO Enter hit zum einloggen
     private LoginControl(){}
 
     public static void checkAuthentication(String email, String pw) throws DatabaseException, SQLException, NoSuchUserOrPassword {
@@ -44,9 +45,8 @@ public class LoginControl {
         }
 
         VaadinSession.getCurrent().setAttribute(Roles.CURRENT, user);
-        if(user.getRole().equals("kunde")){
-            UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
-        }
+        if(user.getRole().equals("kunde")) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
+        if(user.getRole().equals("vertriebler")) UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN);
     }
 
     public static void logoutUser() {

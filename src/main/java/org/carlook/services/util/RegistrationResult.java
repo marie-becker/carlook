@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 public class RegistrationResult {
 
     public enum FailureType{ NAME_MISSING, EMAIL_MISSING, EMAIL_INVALID, EMAIL_EXISTS, PW_MISSING,
-    //NAME_AND_EMAIL_MISSING, NAME_AND_PW_MISSING, EMAIL_AND_PW_MISSING,
-    PW_TOO_SHORT, PWS_DONT_MATCH, NO_ROLE}
+        PW_TOO_SHORT, PWS_DONT_MATCH, NO_ROLE}
 
     private FailureType failureType;
     private boolean result;

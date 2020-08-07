@@ -15398,19 +15398,6 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-.mytheme .start_sidebar {
-	position: fixed;
-	background: rgba(255, 255, 255, 0.7);
-	height: 100%;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	border-right: 1px solid #2891d9;
-	font-family: "Helvetica Neue";
-	overflow-y: auto;
-	-ms-overflow-y: auto;
-}
-
 .mytheme .v-caption-start_header .v-captiontext {
 	color: #2891d9;
 	font-size: 40px;
@@ -15432,4 +15419,21 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .header_carlook {
 	font-size: 45px;
 	line-height: normal;
+}
+
+.mytheme .v-caption-pageTitle {
+	color: #3c3c3c;
+	font-size: 40px;
+	text-align: left;
+	font-family: "Helvetica Neue";
+	text-shadow: 1px 1px 1px black;
+	text-decoration: underline;
+}
+
+.mytheme .v-button-edit_button {
+	background: transparent !important;
+	border-radius: 10px !important;
+	width: 50px;
+	font-family: "Helvetica Neue";
+	text-align: center;
 }

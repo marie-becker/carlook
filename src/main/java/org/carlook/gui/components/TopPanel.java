@@ -5,6 +5,7 @@ import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 
+import com.vaadin.ui.themes.ValoTheme;
 import org.carlook.model.objects.entities.User;
 import org.carlook.process.control.LoginControl;
 import org.carlook.services.util.Konstanten;
@@ -15,17 +16,27 @@ public class TopPanel extends HorizontalLayout {
 
     public TopPanel() {
         this.setSizeFull();
+        User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
 
         //Name des Systems <i> für kursiv
         Label headLabel = new Label("Carlook", ContentMode.HTML);
+        Button carlook = new Button("Carlook");
+        carlook.addStyleName(ValoTheme.BUTTON_BORDERLESS);
+        carlook.addClickListener(e->{
+            if(user == null) UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
+            else if(user.getRole().equals("kunde")) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
+            else if(user.getRole().equals("vertriebler")) UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN);
+        });
+        carlook.setWidth("45px");
+
         headLabel.setSizeUndefined();
         headLabel.addStyleName("header_carlook");
 
-        this.addComponent(headLabel);
+        this.addComponent(carlook);
 
         HorizontalLayout horLayout = new HorizontalLayout();
 
-        User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
+
 
         if(user != null) {
 
@@ -45,19 +56,20 @@ public class TopPanel extends HorizontalLayout {
             MenuBar bar = new MenuBar();
             MenuBar.MenuItem item1 = bar.addItem("Menü", null);
 
-            //Logout des Users
-            item1.addItem("Reservierungen", VaadinIcons.LIST, new MenuBar.Command() {
-                public void menuSelected(MenuBar.MenuItem menuItem) {
-                    UI.getCurrent().getNavigator().navigateTo(Konstanten.RSV_AUTOS);
-                }
-            });
+            //Kunde hat eigene View für Reservierungen:
+            if(user.getRole().equals("kunde")) {
+                item1.addItem("Reservierungen", VaadinIcons.LIST, new MenuBar.Command() {
+                    public void menuSelected(MenuBar.MenuItem menuItem) {
+                        UI.getCurrent().getNavigator().navigateTo(Konstanten.RSV_AUTOS);
+                    }
+                });
+            }
 
             item1.addItem("Logout", VaadinIcons.SIGN_OUT, new MenuBar.Command() {
                 public void menuSelected(MenuBar.MenuItem selectedItem) {
                     LoginControl.logoutUser();
                 }
             });
-
 
 
             horLayout.addComponent(bar);

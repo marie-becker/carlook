@@ -83,7 +83,7 @@ public class AutoDAO extends AbstractDAO {
     }
 
     public List<Auto> getMyAutos(int verId) throws SQLException {
-        String sql = "SELECT * FROM carlook.auto WHERE verId = ?";
+        String sql = "SELECT * FROM carlook.auto WHERE ver_id = ?";
         PreparedStatement statement = this.getPreparedStatement(sql);
         statement.setInt(1, verId);
         return getAutoList(statement);
@@ -104,12 +104,13 @@ public class AutoDAO extends AbstractDAO {
     }
 
     public void insertAuto(String marke, String baujahr, String descr, int verId){
-        String sql = "insert into carlook.auto (marke, baujahr, beschreibung) values(?,?,?)";
+        String sql = "insert into carlook.auto (marke, baujahr, beschreibung, ver_id) values(?,?,?,?)";
         PreparedStatement statement = this.getPreparedStatement(sql);
         try {
             statement.setString(1, marke);
             statement.setString(2, baujahr);
             statement.setString(3, descr);
+            statement.setInt(4, verId);
 
             statement.executeUpdate();
         } catch (SQLException ex) {

@@ -5,6 +5,7 @@ org\carlook\model\objects\entities\User.class
 org\carlook\gui\views\RegView.class
 org\carlook\model\objects\dao\AutoDAO.class
 org\carlook\services\util\Roles.class
+org\carlook\gui\windows\InseratPopUp.class
 org\carlook\services\util\RegistrationResult$1.class
 org\carlook\gui\views\ReservierteAutosView.class
 org\carlook\gui\MyUI.class
@@ -12,6 +13,7 @@ org\carlook\gui\components\TopPanel$1.class
 org\carlook\model\objects\dao\ProfilDAO.class
 org\carlook\process\control\exceptions\DatabaseException.class
 org\carlook\services\util\UserBuilder.class
+org\carlook\gui\views\VertrieblerMainView.class
 org\carlook\model\objects\factories\RegFactory.class
 org\carlook\process\control\exceptions\NoSuchUserOrPassword.class
 org\carlook\gui\views\StartseiteView.class

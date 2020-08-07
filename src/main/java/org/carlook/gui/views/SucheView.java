@@ -116,9 +116,9 @@ public class SucheView extends VerticalLayout implements View {
         autoGrid.setItems(autos);
         autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
 
-        autoGrid.addColumn(Auto::getAutoid).setCaption("Auto-ID"); //TODO später raus
-        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke");
-        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr");
+
+        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
+        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
         autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
 
         ButtonRenderer<Auto> reservieren = new ButtonRenderer<>(clickEvent ->{
@@ -126,9 +126,9 @@ public class SucheView extends VerticalLayout implements View {
             UI.getCurrent().addWindow(window);
         });
 
-        autoGrid.addColumn(Auto -> "Reservieren", reservieren);
+        autoGrid.addColumn(Auto -> "Reservieren", reservieren).setWidthUndefined();
 
         content.addComponents(new Label("&nbsp", ContentMode.HTML), autoGrid);
-        autoGrid.setWidth("70%");
+        autoGrid.setWidth("100%");
     }
 }

@@ -53,18 +53,6 @@ $v-component-group-spacing: 6px;
   @include valo;
 
   // Insert your own theme rules here
-  .start_sidebar{
-    position:fixed;
-    background: rgba(255, 255, 255, 0.7);
-    height: 100%;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    border-right: 1px solid #2891d9;
-    font-family: "Helvetica Neue";
-    overflow-y: auto;
-    -ms-overflow-y: auto;
-  }
 
   .v-caption-start_header .v-captiontext {
     color: #2891d9;
@@ -87,6 +75,25 @@ $v-component-group-spacing: 6px;
   .header_carlook {
     font-size: 45px;
     line-height: normal;
+  }
+
+  .v-caption-pageTitle{
+    color: #3c3c3c;
+    font-size: 40px;
+    text-align: left;
+    font-family: "Helvetica Neue";
+    text-shadow: 1px 1px 1px black;
+    text-decoration: underline;
+  }
+
+  .v-button-edit_button {
+    background: transparent !important;
+    //border: 1px solid #2891d9 !important;
+    border-radius: 10px !important;
+    //color: #2891d9 !important;
+    width: 50px;
+    font-family: "Helvetica Neue";
+    text-align: center;
   }
 
 }

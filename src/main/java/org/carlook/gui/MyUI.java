@@ -1,15 +1,11 @@
 package org.carlook.gui;
 
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import org.carlook.gui.views.RegView;
-import org.carlook.gui.views.ReservierteAutosView;
-import org.carlook.gui.views.StartseiteView;
-import org.carlook.gui.views.SucheView;
+import org.carlook.gui.views.*;
 import org.carlook.services.util.Konstanten;
 
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +18,11 @@ import javax.servlet.annotation.WebServlet;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+
+@Title("Carlook")
+@PreserveOnRefresh
 @Theme("mytheme")
+
 public class MyUI extends UI {
 
     private Navigator navi;
@@ -34,6 +34,7 @@ public class MyUI extends UI {
         navi.addView(Konstanten.REGISTER, RegView.class);
         navi.addView(Konstanten.SUCHE, SucheView.class);
         navi.addView(Konstanten.RSV_AUTOS, ReservierteAutosView.class);
+        navi.addView(Konstanten.VER_MAIN, VertrieblerMainView.class);
         UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
     }
 
