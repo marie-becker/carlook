@@ -54,20 +54,34 @@ public class ProfilDAO extends AbstractDAO {
         }
     }
 
-    public void registerVer(Registrierung reg){
-        String sql = "insert into carlook.vertriebler_view (vorname, nachname, email, passwort) values (?,?,?,?)";
-        PreparedStatement statement = this.getPreparedStatement(sql);
+    public void registerVer(Registrierung reg) throws SQLException {
+        //Erst neuen Vertriebler erstellen -> kunde_id
+        String vertriebler = "insert into carlook.vertriebler DEFAULT VALUES";
+        PreparedStatement statement = this.getPreparedStatement(vertriebler);
+        statement.executeUpdate();
 
-        try{
-            statement.setString(1, reg.getVorname());
-            statement.setString(2, reg.getNachname());
-            statement.setString(3, reg.getEmail());
-            statement.setString(4, reg.getPw());
+        //ver_id des neuen Eintrags holen
+        String verId = "SELECT MAX(ver_id) FROM carlook.vertriebler";
+        PreparedStatement statement2 = this.getPreparedStatement(verId);
 
-            statement.executeUpdate();
-        }catch(SQLException ex){
+        //Neuen User anlegen mit der besorgten ver_id
+        String user = "insert into carlook.user (vorname, nachname, email, passwort, rolle, ver_id) values (?,?,?,?,?,?)";
+        PreparedStatement statement3 = this.getPreparedStatement(user);
+
+        try (ResultSet rs = statement2.executeQuery()) {
+            int vertId = 0;
+            if (rs.next()) {
+                vertId = rs.getInt(1);
+            }
+            statement3.setString(1, reg.getVorname());
+            statement3.setString(2, reg.getNachname());
+            statement3.setString(3, reg.getEmail());
+            statement3.setString(4, reg.getPw());
+            statement3.setString(5, Roles.VERTRIEBLER);
+            statement3.setInt(6, vertId);
+            statement3.executeUpdate();
+        } catch (SQLException ex) {
             Logger.getLogger(ProfilDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

@@ -6,9 +6,10 @@ import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import org.carlook.gui.components.TopPanel;
-import org.carlook.model.objects.Auto;
+import org.carlook.model.objects.entities.Auto;
 import org.carlook.model.objects.dao.AutoDAO;
 import org.carlook.model.objects.entities.User;
+import org.carlook.services.util.GridBuild;
 import org.carlook.services.util.Konstanten;
 import org.carlook.services.util.Roles;
 
@@ -16,6 +17,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static org.carlook.services.util.GridBuild.basicGrid;
 
 
 public class ReservierteAutosView extends VerticalLayout implements View {
@@ -32,25 +35,15 @@ public class ReservierteAutosView extends VerticalLayout implements View {
         Label spacer = new Label("&nbsp", ContentMode.HTML);
         TopPanel toppanel = new TopPanel();
 
-        Grid<Auto> autoGrid = new Grid<>();
-        autoGrid.setSizeUndefined();
         List<Auto> autos = null;
         try {
             autos = AutoDAO.getInstance().getMyRsvAutos(user.getKundeId());
         } catch (SQLException throwables) {
             Logger.getLogger(ReservierteAutosView.class.getName()).log(Level.SEVERE, null, throwables);
         }
+        Grid<Auto> autoGrid = GridBuild.basicGrid(autos);
 
-        autoGrid.removeAllColumns();
-        autoGrid.setCaptionAsHtml(true);
         autoGrid.setCaption(" <span style='color:#EAECEC; font-size:25px; text-shadow: 1px 1px 1px black; font-family: Roboto, sans-serif;'> " + "Meine reservierten Autos: " + " </span>");
-        autoGrid.setItems(autos);
-        autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
-        autoGrid.setWidth("100%");
-
-        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
-        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
-        autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
 
         VerticalLayout content = new VerticalLayout();
         content.addComponents(toppanel, spacer, autoGrid);
@@ -59,3 +52,5 @@ public class ReservierteAutosView extends VerticalLayout implements View {
         this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
 }
+
+

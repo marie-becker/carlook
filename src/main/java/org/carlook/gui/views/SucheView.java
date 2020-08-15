@@ -8,9 +8,10 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
 import org.carlook.gui.components.TopPanel;
 import org.carlook.gui.windows.ConfirmationWindow;
-import org.carlook.model.objects.Auto;
+import org.carlook.model.objects.entities.Auto;
 import org.carlook.model.objects.dao.AutoDAO;
 import org.carlook.model.objects.entities.User;
+import org.carlook.services.util.GridBuild;
 import org.carlook.services.util.Konstanten;
 import org.carlook.services.util.Roles;
 
@@ -23,7 +24,6 @@ public class SucheView extends VerticalLayout implements View {
 
     User user;
     VerticalLayout content = new VerticalLayout();
-    Label pageTitle;
     HorizontalLayout suchFelder;
     TopPanel toppanel;
     Label spacer = new Label("&nbsp", ContentMode.HTML);
@@ -62,8 +62,6 @@ public class SucheView extends VerticalLayout implements View {
         content.removeAllComponents();
         content.addComponents(toppanel, new Label("&nbsp", ContentMode.HTML), suchFelder);
 
-        Grid<Auto> autoGrid = new Grid<>();
-        autoGrid.setSizeUndefined();
         List<Auto> autos = null;
 
         try {
@@ -72,15 +70,8 @@ public class SucheView extends VerticalLayout implements View {
             Logger.getLogger(SucheView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        autoGrid.removeAllColumns();
-        autoGrid.setCaptionAsHtml(true);
+        Grid<Auto> autoGrid = GridBuild.basicGrid(autos);
         autoGrid.setCaption(" <span style='color:#EAECEC; font-size:25px; text-shadow: 1px 1px 1px black; font-family: Roboto, sans-serif;'> " + (marke.equals("") ? "Alle Autos:" : "Ergebnisse für: " + marke) + " </span>");
-        autoGrid.setItems(autos);
-        autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
-
-        autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
-        autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
-        autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
 
         ButtonRenderer<Auto> reservieren = new ButtonRenderer<>(clickEvent ->{
             ConfirmationWindow window = new ConfirmationWindow("Wollen sie dieses Auto reservieren?", clickEvent.getItem().getAutoid());
@@ -90,6 +81,5 @@ public class SucheView extends VerticalLayout implements View {
         autoGrid.addColumn(Auto -> "Reservieren", reservieren).setWidth(150);
 
         content.addComponents(spacer, autoGrid);
-        autoGrid.setWidth("100%");
     }
 }

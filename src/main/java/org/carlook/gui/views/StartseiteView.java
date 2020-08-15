@@ -31,6 +31,7 @@ public class StartseiteView extends VerticalLayout implements View {
     }
 
     public void setUp(){
+        final String SPACER = "&nbsp";
         VerticalLayout content = new VerticalLayout();
         TopPanel topPanel = new TopPanel();
         content.addComponent(topPanel);
@@ -54,7 +55,6 @@ public class StartseiteView extends VerticalLayout implements View {
         signin.addClickListener(e->{
             String emailIn = email.getValue();
             String pwIn = pw.getValue();
-
             try {
                 LoginControl.checkAuthentication(emailIn, pwIn);
             }catch(NoSuchUserOrPassword nsup){
@@ -81,7 +81,7 @@ public class StartseiteView extends VerticalLayout implements View {
         register.setSpacing(false);
 
 
-        login.addComponents(new Label("&nbsp", ContentMode.HTML),email, pw, new Label("&nbsp", ContentMode.HTML), regis1, register, new Label("&nbsp", ContentMode.HTML), signin, new Label("&nbsp", ContentMode.HTML));
+        login.addComponents(new Label(SPACER, ContentMode.HTML),email, pw, new Label(SPACER, ContentMode.HTML), regis1, register, new Label(SPACER, ContentMode.HTML), signin, new Label(SPACER, ContentMode.HTML));
         login.setComponentAlignment(signin, Alignment.MIDDLE_CENTER);
         login.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
         login.setComponentAlignment(pw, Alignment.MIDDLE_CENTER);

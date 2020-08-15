@@ -1,7 +1,7 @@
 package org.carlook.model.objects.dao;
 
 import com.vaadin.ui.Notification;
-import org.carlook.model.objects.Auto;
+import org.carlook.model.objects.entities.Auto;
 import org.postgresql.util.PSQLException;
 
 import java.sql.PreparedStatement;
@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 
 public class AutoDAO extends AbstractDAO {
     private static AutoDAO dao = null;
-    private  AutoDAO(){
+    private  AutoDAO(){}
 
-    }
+    //Singleton
     public static AutoDAO getInstance(){
         if(dao == null){
             dao = new AutoDAO();
@@ -25,6 +25,7 @@ public class AutoDAO extends AbstractDAO {
         return dao;
     }
 
+    //Gibt Statement passend zu Suchparametern zurück
     public PreparedStatement getStatement(String marke, String baujahr) throws SQLException {
         if(!marke.equals("")) marke = "%"+marke.toUpperCase()+"%";
         if(!baujahr.equals("")) baujahr = "%"+baujahr+"%";
@@ -54,11 +55,13 @@ public class AutoDAO extends AbstractDAO {
         return statement;
     }
 
+    //Für die Autosuche
     public List<Auto> searchAutos(String marke, String baujahr) throws SQLException {
         PreparedStatement statement = getStatement(marke, baujahr);
         return getAutoList(statement);
     }
 
+    //Gibt eine Liste von Autos zurück, die auf ein übergebenes Statement passen
     private List<Auto> getAutoList(PreparedStatement statement) {
         List<Auto> autoList = new ArrayList<>();
         try(ResultSet rs = statement.executeQuery()){
@@ -70,6 +73,7 @@ public class AutoDAO extends AbstractDAO {
         return autoList;
     }
 
+    //Gibt das nächste Auto eines übergebenen ResultSets zurück
     public Auto getAuto(ResultSet rs) throws SQLException {
         Auto auto = new Auto();
         auto.setAutoid(rs.getInt(1));
@@ -79,6 +83,7 @@ public class AutoDAO extends AbstractDAO {
         return auto;
     }
 
+    //Gibt die inserierten Autos eines Vertrieblers zurück
     public List<Auto> getMyAutos(int verId) throws SQLException {
         String sql = "SELECT * FROM carlook.auto WHERE ver_id = ?";
         PreparedStatement statement = this.getPreparedStatement(sql);
@@ -86,6 +91,7 @@ public class AutoDAO extends AbstractDAO {
         return getAutoList(statement);
     }
 
+    //Gibt die reservierten Autos eines Kunden zurück
     public List<Auto> getMyRsvAutos(int kundeId) throws SQLException {
         String sql = "SELECT * FROM carlook.auto a INNER JOIN carlook.kunde_rsv_auto k ON a.auto_id = k.auto_id WHERE k.kunde_id = ?";
         PreparedStatement statement = this.getPreparedStatement(sql);
@@ -100,6 +106,7 @@ public class AutoDAO extends AbstractDAO {
         return autoList;
     }
 
+    //Wenn ein Vertriebler ein neues Auto inseriert
     public void insertAuto(String marke, String baujahr, String descr, int verId){
         String sql = "insert into carlook.auto (marke, baujahr, beschreibung, ver_id) values(?,?,?,?)";
         PreparedStatement statement = this.getPreparedStatement(sql);
@@ -115,6 +122,7 @@ public class AutoDAO extends AbstractDAO {
         }
     }
 
+    //Wenn ein Kunde ein Auto reserviert
     public void reservierAuto(int autoId, int kundeId){
         String sql = "insert into carlook.kunde_rsv_auto (auto_id, kunde_id) values (?,?)";
         PreparedStatement statement = this.getPreparedStatement(sql);
