@@ -1,15 +1,19 @@
 package org.carlook.gui.views;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.carlook.gui.components.TopPanel;
+import org.carlook.model.objects.entities.User;
 import org.carlook.process.control.LoginControl;
 import org.carlook.process.control.exceptions.DatabaseException;
 import org.carlook.process.control.exceptions.NoSuchUserOrPassword;
 import org.carlook.services.util.Konstanten;
+import org.carlook.services.util.Roles;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,17 +22,23 @@ import java.util.logging.Logger;
 public class StartseiteView extends VerticalLayout implements View {
 
     public void enter(ViewChangeListener.ViewChangeEvent event){
-        this.setUp();}
+        User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
+        if(user != null){
+            if(user.getRole().equals(Roles.KUNDE)) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
+            if(user.getRole().equals(Roles.VERTRIEBLER)) UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN);
+        }
+        else this.setUp();
+    }
 
     public void setUp(){
+        VerticalLayout content = new VerticalLayout();
         TopPanel topPanel = new TopPanel();
-        this.addComponent(topPanel);
-
-        Label spacer = new Label("&nbsp", ContentMode.HTML);
+        content.addComponent(topPanel);
+        content.setComponentAlignment(topPanel, Alignment.TOP_LEFT);
 
         VerticalLayout login = new VerticalLayout();
         Panel panel = new Panel("SignIn");
-        panel.setSizeUndefined();
+        panel.setWidth("20%");
 
         final TextField email = new TextField();
         email.setCaption("Email-Adresse: ");
@@ -39,6 +49,8 @@ public class StartseiteView extends VerticalLayout implements View {
         pw.setDescription("Geben sie das von Ihnen gewählte Passwort ein.");
 
         Button signin = new Button("Login");
+        signin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+
         signin.addClickListener(e->{
             String emailIn = email.getValue();
             String pwIn = pw.getValue();
@@ -57,26 +69,30 @@ public class StartseiteView extends VerticalLayout implements View {
 
 
         HorizontalLayout register = new HorizontalLayout();
-        Label regis = new Label("Noch kein Konto? Registrieren Sie sich");
-        Button signUp = new Button("hier", e->{
-            UI.getCurrent().getNavigator().navigateTo(Konstanten.REGISTER);
-        });
+        Label regis1 = new Label("Noch kein Konto?");
+        Label regis2 = new Label( "Registrieren Sie sich ");
+        Button signUp = new Button("hier", e-> UI.getCurrent().getNavigator().navigateTo(Konstanten.REGISTER));
         signUp.addStyleName(ValoTheme.BUTTON_LINK);
         signUp.addStyleName("here-button");
         signUp.setWidthUndefined();
-        register.addComponents(regis, signUp);
-        register.setComponentAlignment(regis, Alignment.MIDDLE_CENTER);
+        register.addComponents(regis2, signUp);
+        register.setComponentAlignment(regis2, Alignment.MIDDLE_CENTER);
         register.setComponentAlignment(signUp, Alignment.MIDDLE_CENTER);
+        register.setSpacing(false);
 
 
-        login.addComponents(email, pw, register, signin);
+        login.addComponents(new Label("&nbsp", ContentMode.HTML),email, pw, new Label("&nbsp", ContentMode.HTML), regis1, register, new Label("&nbsp", ContentMode.HTML), signin, new Label("&nbsp", ContentMode.HTML));
         login.setComponentAlignment(signin, Alignment.MIDDLE_CENTER);
         login.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
         login.setComponentAlignment(pw, Alignment.MIDDLE_CENTER);
+        login.setComponentAlignment(register, Alignment.MIDDLE_CENTER);
+        login.setComponentAlignment(regis1, Alignment.MIDDLE_CENTER);
         panel.setContent(login);
 
-        this.addComponent(panel);
-        this.setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
+        content.addComponent(panel);
+        content.setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
+        this.addComponent(content);
+        this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
 
 

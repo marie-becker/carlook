@@ -10,7 +10,7 @@ import org.carlook.services.util.Roles;
 public class ConfirmationWindow extends Window {
 
     public ConfirmationWindow(String text, int autoId){
-        super("Confirmation"); //set window caption
+        super("Confirmation");
         center();
         User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
 
@@ -33,6 +33,5 @@ public class ConfirmationWindow extends Window {
         buttons.addComponents(yes, no);
         content.addComponents(new Label(text), buttons);
         content.setComponentAlignment(buttons, Alignment.MIDDLE_CENTER);
-        //content.setComponentAlignment(buchungsButton, Alignment.MIDDLE_CENTER);
     }
 }

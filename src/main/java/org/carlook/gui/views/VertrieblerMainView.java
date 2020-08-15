@@ -31,13 +31,10 @@ public class VertrieblerMainView extends VerticalLayout implements View {
 
     public void setUp() {
         Label spacer = new Label("&nbsp", ContentMode.HTML);
-        Label pagetitle = new Label("Meine eingestellten Autos");
-        pagetitle.addStyleName("pageTitle");
-        this.addComponents(new TopPanel(), spacer, pagetitle);
+
 
         InseratPopUp inserat = new InseratPopUp();
-        Button addAuto = new Button(VaadinIcons.PLUS);
-        addAuto.addStyleName("edit_button");
+        Button addAuto = new Button("Neues Auto hinzufügen", VaadinIcons.PLUS);
         addAuto.addClickListener(e-> {
             UI.getCurrent().addWindow(inserat);
             inserat.setModal(true);
@@ -45,12 +42,11 @@ public class VertrieblerMainView extends VerticalLayout implements View {
 
         inserat.addCloseListener(e-> UI.getCurrent().getPage().reload());
 
-        VerticalLayout buttonPan = new VerticalLayout();
+        HorizontalLayout buttonPan = new HorizontalLayout();
         buttonPan.addComponents(addAuto);
-        buttonPan.setComponentAlignment(addAuto, Alignment.TOP_RIGHT);
-
 
         Grid<Auto> autoGrid = new Grid<>();
+        autoGrid.setCaptionAsHtml(true);
         autoGrid.setSizeUndefined();
         List<Auto> autos = null;
         try {
@@ -60,19 +56,20 @@ public class VertrieblerMainView extends VerticalLayout implements View {
         }
 
         autoGrid.removeAllColumns();
-        //autoGrid.setCaption(" <span style='font-size: 25px'> " + "Meine inserierten Autos: " + " </span>");
-        autoGrid.setCaption(" <span style='color:#2891d9; font-size:20px; text-shadow: 1px 1px 1px black; font-family:Helvetica Neue'> " + "Meine inserierten Autos: " + " </span>");
-
-
+        autoGrid.setCaption(" <span style='color:#EAECEC; font-size:25px; text-shadow: 1px 1px 1px black; font-family: Roboto, sans-serif;'> " + "Meine inserierten Autos: " + " </span>");
         autoGrid.setItems(autos);
         autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
+        autoGrid.setWidth("100%");
 
         autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
         autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
         autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
 
-        autoGrid.setWidth("100%");
 
-        this.addComponents(buttonPan, autoGrid);
+        VerticalLayout content = new VerticalLayout();
+        content.addComponents(new TopPanel(), spacer, buttonPan, autoGrid);
+        content.setComponentAlignment(buttonPan, Alignment.MIDDLE_RIGHT);
+        this.addComponents(content);
+        this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
 }

@@ -69,8 +69,12 @@ public class RegistrationControl {
             result.setReason(RegistrationResult.FailureType.EMAIL_MISSING);
             result.setResult(false);
         }
+        if(request.getNachname() == null || request.getNachname().equals("")){
+            result.setReason(RegistrationResult.FailureType.NACHNAME_MISSING);
+            result.setResult(false);
+        }
         if(request.getVorname() == null || request.getVorname().equals("")){
-            result.setReason(RegistrationResult.FailureType.NAME_MISSING);
+            result.setReason(RegistrationResult.FailureType.VORNAME_MISSING);
             result.setResult(false);
         }
 

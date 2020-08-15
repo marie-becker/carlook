@@ -4,7 +4,8 @@ import java.util.regex.Pattern;
 
 public class RegistrationResult {
 
-    public enum FailureType{ NAME_MISSING, EMAIL_MISSING, EMAIL_INVALID, EMAIL_EXISTS, PW_MISSING,
+    public enum FailureType{
+        VORNAME_MISSING, NACHNAME_MISSING,  EMAIL_MISSING, EMAIL_INVALID, EMAIL_EXISTS, PW_MISSING,
         PW_TOO_SHORT, PWS_DONT_MATCH, NO_ROLE}
 
     private FailureType failureType;
@@ -20,10 +21,14 @@ public class RegistrationResult {
     public String error(){
         if(!result){
             switch (failureType){
-                case NAME_MISSING:
-                    return "Bitte geben sie einen Namen ein.";
+                case VORNAME_MISSING:
+                    return "Bitte geben sie Ihren Vornamen ein.";
+                case NACHNAME_MISSING:
+                    return "Bitte geben sie Ihren Nachnamen ein.";
                 case EMAIL_MISSING:
                     return "Bitte geben sie Ihre Email-Adresse ein.";
+                case EMAIL_EXISTS:
+                    return "Diese Email wird schon verwendet.";
                 case PW_MISSING:
                     return "Bitte geben sie ein Passwort ein.";
                 case EMAIL_INVALID:

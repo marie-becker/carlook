@@ -68,8 +68,9 @@ $v-component-group-spacing: 6px;
   }
 
   .here-button {
-    height: auto;
-    padding: 0px;
+    padding: 5px;
+    height: fit-content;
+    font-size: 17px;
   }
 
   .header_carlook {
@@ -86,14 +87,24 @@ $v-component-group-spacing: 6px;
     text-decoration: underline;
   }
 
-  .v-button-edit_button {
-    background: transparent !important;
-    //border: 1px solid #2891d9 !important;
-    border-radius: 10px !important;
-    //color: #2891d9 !important;
-    width: 50px;
-    font-family: "Helvetica Neue";
-    text-align: center;
+
+  .anchor-button {
+    font-size: 60px;
+    border: transparent !important;
+    background: transparent;
+    text-align: left;
+    box-shadow: none !important;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+  }
+
+  .v-nativebutton{
+    background: transparent;
+    color: whitesmoke;
+    border-radius: 5px;
+    border-color: grey;
+    box-shadow: none !important;
   }
 
 }

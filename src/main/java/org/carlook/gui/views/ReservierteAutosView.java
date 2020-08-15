@@ -4,10 +4,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.carlook.gui.components.TopPanel;
 import org.carlook.model.objects.Auto;
 import org.carlook.model.objects.dao.AutoDAO;
@@ -33,7 +30,7 @@ public class ReservierteAutosView extends VerticalLayout implements View {
 
     public void setUp() {
         Label spacer = new Label("&nbsp", ContentMode.HTML);
-        this.addComponents(new TopPanel(), spacer, spacer);
+        TopPanel toppanel = new TopPanel();
 
         Grid<Auto> autoGrid = new Grid<>();
         autoGrid.setSizeUndefined();
@@ -45,17 +42,20 @@ public class ReservierteAutosView extends VerticalLayout implements View {
         }
 
         autoGrid.removeAllColumns();
-        autoGrid.setCaption("Meine reservierten Autos:"); //TODO Schrift größer
+        autoGrid.setCaptionAsHtml(true);
+        autoGrid.setCaption(" <span style='color:#EAECEC; font-size:25px; text-shadow: 1px 1px 1px black; font-family: Roboto, sans-serif;'> " + "Meine reservierten Autos: " + " </span>");
         autoGrid.setItems(autos);
         autoGrid.setHeightByRows(!autos.isEmpty() ? autos.size() : 1);
-
+        autoGrid.setWidth("100%");
 
         autoGrid.addColumn(Auto::getMarke).setCaption("Automarke").setWidth(230);
         autoGrid.addColumn(Auto::getBaujahr).setCaption("Baujahr").setWidth(90);
         autoGrid.addColumn(Auto::getBeschreibung).setCaption("Beschreibung");
 
-        autoGrid.setWidth("100%");
+        VerticalLayout content = new VerticalLayout();
+        content.addComponents(toppanel, spacer, autoGrid);
 
-        this.addComponent(autoGrid);
+        this.addComponent(content);
+        this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
 }

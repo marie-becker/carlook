@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 public class LoginControl {
 
-    //TODO Enter hit zum einloggen
     private LoginControl(){}
 
     public static void checkAuthentication(String email, String pw) throws DatabaseException, SQLException, NoSuchUserOrPassword {
@@ -35,8 +34,8 @@ public class LoginControl {
                 user.setPw(set.getString(4));
                 user.setRole(set.getString(5));
                 user.setId(set.getInt(6));
-                if(user.getRole().equals("kunde")) user.setKundeId(set.getInt(7));
-                if(user.getRole().equals("vertriebler")) user.setVerId(set.getInt(8));
+                if(user.getRole().equals(Roles.KUNDE)) user.setKundeId(set.getInt(7));
+                if(user.getRole().equals(Roles.VERTRIEBLER)) user.setVerId(set.getInt(8));
             }else{
                 throw new NoSuchUserOrPassword();
             }
@@ -45,8 +44,8 @@ public class LoginControl {
         }
 
         VaadinSession.getCurrent().setAttribute(Roles.CURRENT, user);
-        if(user.getRole().equals("kunde")) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
-        if(user.getRole().equals("vertriebler")) UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN);
+        if(user.getRole().equals(Roles.KUNDE)) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
+        if(user.getRole().equals(Roles.VERTRIEBLER)) UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN);
     }
 
     public static void logoutUser() {

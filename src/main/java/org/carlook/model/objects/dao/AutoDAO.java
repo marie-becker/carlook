@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,22 +33,18 @@ public class AutoDAO extends AbstractDAO {
 
         if(marke.equals("")){
             if(baujahr.equals("")){
-                System.out.println("both empty");
                 statement = this.getPreparedStatement(allCars);
             }else{
-                System.out.println("marke leer, baujahr da");
                 String nachBaujahr = allCars + " WHERE baujahr LIKE ?";
                 statement = this.getPreparedStatement(nachBaujahr);
                 statement.setString(1, baujahr);
             }
         }else{
             if(baujahr.equals("")){
-                System.out.println("marke da, baujahr leer");
                 String nachMarke = allCars + " WHERE UPPER(marke) LIKE ?";
                 statement = this.getPreparedStatement(nachMarke);
                 statement.setString(1, marke);
             }else{
-                System.out.println("marke da, baujahr da");
                 String both = allCars + " WHERE UPPER(marke) LIKE ? AND baujahr LIKE ?";
                 statement = this.getPreparedStatement(both);
                 statement.setString(1, marke);
@@ -65,7 +62,7 @@ public class AutoDAO extends AbstractDAO {
     private List<Auto> getAutoList(PreparedStatement statement) {
         List<Auto> autoList = new ArrayList<>();
         try(ResultSet rs = statement.executeQuery()){
-            if(rs == null) return null;
+            if(rs == null) return Collections.emptyList();
             while(rs.next()) autoList.add(getAuto(rs));
         }catch(SQLException ex){
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,7 +92,7 @@ public class AutoDAO extends AbstractDAO {
         List<Auto> autoList = new ArrayList<>();
         statement.setInt(1,kundeId);
         try(ResultSet set = statement.executeQuery()) {
-            if(set == null) return null;
+            if(set == null) return Collections.emptyList();
             while(set.next()) autoList.add(getAuto(set));
         } catch (SQLException ex) {
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);

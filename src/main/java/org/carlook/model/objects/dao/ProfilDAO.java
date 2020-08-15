@@ -1,8 +1,10 @@
 package org.carlook.model.objects.dao;
 
 import org.carlook.model.objects.entities.Registrierung;
+import org.carlook.services.util.Roles;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,25 +21,35 @@ public class ProfilDAO extends AbstractDAO {
         return dao;
     }
 
-    public void registerKunde(Registrierung reg){
-        String sql = "insert into carlook.user (vorname, nachname, email, passwort, rolle) values (?,?,?,?,?)";
-        String sql2 = "insert into carlook.user_to_rolle (email, rolle) values (?,?)";
-        PreparedStatement statement2 = this.getPreparedStatement(sql2);
-        PreparedStatement statement = this.getPreparedStatement(sql);
+    public void registerKunde(Registrierung reg) throws SQLException {
+        //Erst neuen Kunden erstellen -> kunde_id
+        String kunde = "insert into carlook.kunde DEFAULT VALUES";
+        PreparedStatement statement = this.getPreparedStatement(kunde);
+        statement.executeUpdate();
 
-        try{
-            statement.setString(1, reg.getVorname());
-            statement.setString(2, reg.getNachname());
-            statement.setString(3, reg.getEmail());
-            statement.setString(4, reg.getPw());
-            statement.setString(5, "kunde");
+        //kunde_id des neuen Eintrags holen
+        String kundeid = "SELECT MAX(kunde_id) FROM carlook.kunde";
+        PreparedStatement statement2 = this.getPreparedStatement(kundeid);
 
-            statement2.setString(1, reg.getEmail());
-            statement2.setString(2, "kunde");
+        //Neuen User anlegen mit der besorgten kunde_id
+        String user = "insert into carlook.user (vorname, nachname, email, passwort, rolle, kunde_id) values (?,?,?,?,?,?)";
+        PreparedStatement statement3 = this.getPreparedStatement(user);
 
-            statement.executeUpdate();
-            statement2.executeUpdate();
-        }catch(SQLException ex){
+
+
+        try(ResultSet rs = statement2.executeQuery()){
+            int kundeId = 0;
+            if(rs.next()) {
+                kundeId = rs.getInt(1);
+            }
+            statement3.setString(1, reg.getVorname());
+            statement3.setString(2, reg.getNachname());
+            statement3.setString(3, reg.getEmail());
+            statement3.setString(4, reg.getPw());
+            statement3.setString(5, Roles.KUNDE);
+            statement3.setInt(6, kundeId);
+            statement3.executeUpdate();
+        } catch (SQLException ex) {
             Logger.getLogger(ProfilDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

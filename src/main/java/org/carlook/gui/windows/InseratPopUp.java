@@ -31,9 +31,7 @@ public class InseratPopUp extends Window {
         descrFeld.setDescription("Geben sie eine kurze Beschreibung des Autos an.");
 
         Button abbruch = new Button("Abbrechen");
-        abbruch.addClickListener(e->{
-            close();
-        });
+        abbruch.addClickListener(e-> close());
 
         Button enter = new Button("Auto einstellen");
         enter.addClickListener(e->{
