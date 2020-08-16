@@ -40,6 +40,7 @@ public class SucheView extends VerticalLayout implements View {
         TextField markeFeld = new TextField("Marke:");
         markeFeld.setDescription("Geben sie eine Automarke ein.");
         markeFeld.setValue("");
+        markeFeld.setId("markeField");
 
         TextField baujahrFeld = new TextField("Baujahr:");
         baujahrFeld.setDescription("Geben sie das Baujahr des Autos ein.");

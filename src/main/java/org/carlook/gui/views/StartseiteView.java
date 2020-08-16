@@ -44,13 +44,16 @@ public class StartseiteView extends VerticalLayout implements View {
         final TextField email = new TextField();
         email.setCaption("Email-Adresse: ");
         email.setDescription("Geben sie ihre Email-Adresse ein.");
+        email.setId("emailField");
 
         final PasswordField pw = new PasswordField();
         pw.setCaption("Passwort: ");
         pw.setDescription("Geben sie das von Ihnen gewählte Passwort ein.");
+        pw.setId("pwField");
 
         Button signin = new Button("Login");
         signin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        signin.setId("loginButton");
 
         signin.addClickListener(e->{
             String emailIn = email.getValue();
@@ -74,6 +77,7 @@ public class StartseiteView extends VerticalLayout implements View {
         Button signUp = new Button("hier", e-> UI.getCurrent().getNavigator().navigateTo(Konstanten.REGISTER));
         signUp.addStyleName(ValoTheme.BUTTON_LINK);
         signUp.addStyleName("here-button");
+        signUp.setId("regButton");
         signUp.setWidthUndefined();
         register.addComponents(regis2, signUp);
         register.setComponentAlignment(regis2, Alignment.MIDDLE_CENTER);

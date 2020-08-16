@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.carlook.services.util.GridBuild.basicGrid;
 
 
 public class ReservierteAutosView extends VerticalLayout implements View {

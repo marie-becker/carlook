@@ -40,6 +40,7 @@ public class VertrieblerMainView extends VerticalLayout implements View {
             UI.getCurrent().addWindow(inserat);
             inserat.setModal(true);
         });
+        addAuto.setId("addButton");
 
         inserat.addCloseListener(e-> UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN));
 
