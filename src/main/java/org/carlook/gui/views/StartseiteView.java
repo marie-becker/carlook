@@ -1,6 +1,7 @@
 package org.carlook.gui.views;
 
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -10,8 +11,8 @@ import com.vaadin.ui.themes.ValoTheme;
 import org.carlook.gui.components.TopPanel;
 import org.carlook.model.objects.entities.User;
 import org.carlook.process.control.LoginControl;
-import org.carlook.process.control.exceptions.DatabaseException;
-import org.carlook.process.control.exceptions.NoSuchUserOrPassword;
+import org.carlook.services.exceptions.DatabaseException;
+import org.carlook.services.exceptions.NoSuchUserOrPassword;
 import org.carlook.services.util.Konstanten;
 import org.carlook.services.util.Roles;
 
@@ -51,9 +52,10 @@ public class StartseiteView extends VerticalLayout implements View {
         pw.setDescription("Geben sie das von Ihnen gewählte Passwort ein.");
         pw.setId("pwField");
 
-        Button signin = new Button("Login");
+        Button signin = new Button("Login", VaadinIcons.USER);
         signin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         signin.setId("loginButton");
+        signin.setDescription("Klicken sie hier, um sich einzuloggen.");
 
         signin.addClickListener(e->{
             String emailIn = email.getValue();
@@ -78,6 +80,7 @@ public class StartseiteView extends VerticalLayout implements View {
         signUp.addStyleName(ValoTheme.BUTTON_LINK);
         signUp.addStyleName("here-button");
         signUp.setId("regButton");
+        signUp.setDescription("Klicken sie hier, um zur Registrierung zu kommen.");
         signUp.setWidthUndefined();
         register.addComponents(regis2, signUp);
         register.setComponentAlignment(regis2, Alignment.MIDDLE_CENTER);
@@ -98,6 +101,4 @@ public class StartseiteView extends VerticalLayout implements View {
         this.addComponent(content);
         this.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
     }
-
-
 }

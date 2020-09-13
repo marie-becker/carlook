@@ -15,8 +15,9 @@ public class TopPanel extends HorizontalLayout {
         this.setSizeFull();
         User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
 
-        Button carlook = new Button("Carlook");
+        Button carlook = new Button("CarLook");
         carlook.addStyleName("anchor-button");
+        carlook.setDescription("Startseite");
         carlook.addClickListener(e->{
             if(user == null) UI.getCurrent().getNavigator().navigateTo(Konstanten.START);
             else if(user.getRole().equals(Roles.KUNDE)) UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE);
@@ -42,12 +43,12 @@ public class TopPanel extends HorizontalLayout {
 
             //Kunde hat Optionen für Views, Vertriebler nur Logout
             if(user.getRole().equals(Roles.KUNDE)) {
-                item1.addItem("Reservierungen", VaadinIcons.LIST, menuItem -> UI.getCurrent().getNavigator().navigateTo(Konstanten.RSV_AUTOS));
+                item1.addItem("Reservierungen", VaadinIcons.LIST, menuItem -> UI.getCurrent().getNavigator().navigateTo(Konstanten.RSV_AUTOS)).setDescription("Klicken sie hier, um sich ihre reservierten Autos anzusehen.");
 
-                item1.addItem("Autosuche", VaadinIcons.SEARCH, menuItem -> UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE));
+                item1.addItem("Autosuche", VaadinIcons.SEARCH, menuItem -> UI.getCurrent().getNavigator().navigateTo(Konstanten.SUCHE)).setDescription("Klicken sie hier, um zur Autosuche zu gelangen.");
             }
 
-            item1.addItem("Logout", VaadinIcons.SIGN_OUT, selectedItem -> LoginControl.logoutUser());
+            item1.addItem("Logout", VaadinIcons.SIGN_OUT, selectedItem -> LoginControl.logoutUser()).setDescription("Klicken sie hier, um von der Seite abgemeldet zu werden.");
 
             horLayout.addComponent(bar);
             this.addComponent(horLayout);

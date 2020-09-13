@@ -33,7 +33,6 @@ public class VertrieblerMainView extends VerticalLayout implements View {
     public void setUp() {
         Label spacer = new Label("&nbsp", ContentMode.HTML);
 
-
         InseratPopUp inserat = new InseratPopUp();
         Button addAuto = new Button("Neues Auto hinzufügen", VaadinIcons.PLUS);
         addAuto.addClickListener(e-> {
@@ -41,6 +40,7 @@ public class VertrieblerMainView extends VerticalLayout implements View {
             inserat.setModal(true);
         });
         addAuto.setId("addButton");
+        addAuto.setDescription("Klicken sie hier, um ein neues Auto einzustellen.");
 
         inserat.addCloseListener(e-> UI.getCurrent().getNavigator().navigateTo(Konstanten.VER_MAIN));
 
@@ -56,8 +56,6 @@ public class VertrieblerMainView extends VerticalLayout implements View {
         Grid<Auto> autoGrid = GridBuild.basicGrid(autos);
 
         autoGrid.setCaption(" <span style='color:#EAECEC; font-size:25px; text-shadow: 1px 1px 1px black; font-family: Roboto, sans-serif;'> " + "Meine inserierten Autos: " + " </span>");
-
-
         VerticalLayout content = new VerticalLayout();
         content.addComponents(new TopPanel(), spacer, buttonPan, autoGrid);
         content.setComponentAlignment(buttonPan, Alignment.MIDDLE_RIGHT);

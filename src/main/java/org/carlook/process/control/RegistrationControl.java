@@ -4,7 +4,7 @@ import org.carlook.model.objects.dao.ProfilDAO;
 import org.carlook.model.objects.entities.Registrierung;
 import org.carlook.model.objects.entities.User;
 import org.carlook.model.objects.factories.RegFactory;
-import org.carlook.process.control.exceptions.DatabaseException;
+import org.carlook.services.exceptions.DatabaseException;
 import org.carlook.services.db.JDBCConnection;
 import org.carlook.services.util.RegistrationResult;
 import org.carlook.services.util.Roles;

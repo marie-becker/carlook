@@ -1,6 +1,6 @@
 package org.carlook.services.db;
 
-import org.carlook.process.control.exceptions.DatabaseException;
+import org.carlook.services.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.Properties;
@@ -39,7 +39,7 @@ public class JDBCConnection {
         try {
             Properties props = new Properties();
             props.setProperty("user", login);
-            props.setProperty("password", "ikaros2412");
+            props.setProperty("password", login);
 
             this.conn = DriverManager.getConnection(this.url, props);
 

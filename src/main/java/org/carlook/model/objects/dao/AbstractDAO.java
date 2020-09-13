@@ -1,6 +1,6 @@
 package org.carlook.model.objects.dao;
 
-import org.carlook.process.control.exceptions.DatabaseException;
+import org.carlook.services.exceptions.DatabaseException;
 import org.carlook.services.db.JDBCConnection;
 
 import java.sql.PreparedStatement;

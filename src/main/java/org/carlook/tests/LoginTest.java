@@ -14,42 +14,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @ExtendWith(SeleniumExtension.class)
 public class LoginTest {
 
-    private WebDriver driver;
-
+    private static WebDriver driver;
 
     public LoginTest(){
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
-    @Test
-    public void loginKunde() {
-        login("marie@fake.com", "passwort");
-
-        WebDriverWait wait = new WebDriverWait(driver,10);
-
-        WebElement markeField = wait.until(ExpectedConditions.elementToBeClickable(By.id("markeField")));
-
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("http://localhost:8080/#!Autosuche", url);
-        driver.quit();
-    }
-
-    @Test
-    public void loginVertriebler(){
-        login("nook@fake.com", "passwort");
-
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-
-        WebElement addButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("addButton")));
-
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("http://localhost:8080/#!MeineInseriertenAutos", url);
-        driver.quit();
-    }
 
     public void login(String email, String pw) {
         driver.get("http://localhost:8080/");
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
 
         WebElement emailField = driver.findElement(By.id("emailField"));
         emailField.sendKeys(email);
@@ -59,5 +36,29 @@ public class LoginTest {
 
         WebElement loginButton = driver.findElement(By.id("loginButton"));
         loginButton.click();
+    }
+
+    @Test
+    public void loginKunde() {
+        login("mb@fake.com", "passwort");
+
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("markeField")));
+
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/#!Autosuche", url);
+        driver.quit();
+    }
+
+    @Test
+    public void loginVertriebler(){
+        login("as@fake.com", "passwort");
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("addButton")));
+
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/#!MeineInseriertenAutos", url);
+        driver.quit();
     }
 }

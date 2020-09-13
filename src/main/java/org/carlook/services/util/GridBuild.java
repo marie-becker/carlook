@@ -5,6 +5,7 @@ import org.carlook.model.objects.entities.Auto;
 
 import java.util.List;
 
+//Zur Minimierung von Duplikationen
 public class GridBuild {
 
     private GridBuild(){}

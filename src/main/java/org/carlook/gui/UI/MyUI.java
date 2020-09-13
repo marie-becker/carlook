@@ -1,4 +1,4 @@
-package org.carlook.gui;
+package org.carlook.gui.UI;
 
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;

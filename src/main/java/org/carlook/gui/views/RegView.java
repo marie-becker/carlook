@@ -8,7 +8,7 @@ import com.vaadin.ui.*;
 import org.carlook.gui.components.TopPanel;
 import org.carlook.model.objects.entities.User;
 import org.carlook.process.control.RegistrationControl;
-import org.carlook.process.control.exceptions.DatabaseException;
+import org.carlook.services.exceptions.DatabaseException;
 import org.carlook.services.util.Konstanten;
 import org.carlook.services.util.RegistrationResult;
 import org.carlook.services.util.Roles;
@@ -33,31 +33,31 @@ public class RegView extends VerticalLayout implements View {
         panel.setSizeUndefined();
 
         final TextField vornameField = new TextField();
-        vornameField.setCaption("Vorname:");
+        vornameField.setCaption("Vorname*: ");
         vornameField.setDescription("Geben sie Ihren Vornamen ein.");
 
         final TextField nachnameField = new TextField();
-        nachnameField.setCaption("Nachname:");
+        nachnameField.setCaption("Nachname*:");
         nachnameField.setDescription("Geben sie Ihren Nachnamen ein.");
 
         final TextField emailField = new TextField();
-        emailField.setCaption("Email-Adresse: ");
+        emailField.setCaption("Email-Adresse*: ");
         emailField.setDescription("Geben sie Ihre Email-Adresse ein.");
 
         final PasswordField pwField = new PasswordField();
-        pwField.setCaption("Passwort: ");
+        pwField.setCaption("Passwort*: ");
         pwField.setDescription("Geben sie ein Passwort ein.");
 
         final PasswordField pw2Field = new PasswordField();
-        pw2Field.setCaption("Passwort bestätigen:");
+        pw2Field.setCaption("Passwort bestätigen*:");
         pw2Field.setDescription("Wiederholen sie das von Ihnen gewählte Passwort.");
 
 
-        NativeSelect<String> profiltyp = new NativeSelect<>("Sind sie Kunde oder Vertriebler?");
+        NativeSelect<String> profiltyp = new NativeSelect<>("Sind sie Kunde oder Vertriebler?*");
         profiltyp.setItems("Kunde", "Vertriebler");
         profiltyp.setDescription("Wählen sie eine Rolle für Ihr Profil aus.");
 
-        Button register = new Button("Registrieren");
+        Button register = new Button("Registrieren", VaadinIcons.USER_CHECK);
         register.setDescription("Klicken sie hier, um die Registrierung abzuschließen.");
         register.addClickListener(e->{
             RegistrationResult r = null;
@@ -67,12 +67,8 @@ public class RegView extends VerticalLayout implements View {
                 Notification.show("Wählen sie eine Profilart aus.", Notification.Type.ERROR_MESSAGE);
                 return;
             }
-            if(profiltyp.getValue().equals("Kunde")){
-                user.setRole(Roles.KUNDE);
-            }
-            if(profiltyp.getValue().equals("Vertriebler")){
-                user.setRole(Roles.VERTRIEBLER);
-            }
+            if(profiltyp.getValue().equals("Kunde")) user.setRole(Roles.KUNDE);
+            if(profiltyp.getValue().equals("Vertriebler")) user.setRole(Roles.VERTRIEBLER);
             try{
                 r = RegistrationControl.getInstance().createRegistration(user);
             }catch(SQLException | DatabaseException ex){

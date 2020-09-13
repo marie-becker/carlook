@@ -1,4 +1,4 @@
-package org.carlook.process.control.exceptions;
+package org.carlook.services.exceptions;
 
 public class NoSuchUserOrPassword extends Exception {
 }

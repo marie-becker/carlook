@@ -21,20 +21,21 @@ public class InseratPopUp extends Window {
 
         User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT);
 
-        TextField markeFeld = new TextField("Automarke:");
+        TextField markeFeld = new TextField("Automarke*:");
         markeFeld.setValue("");
         markeFeld.setDescription("Geben sie die Automarke ein.");
 
-        TextField baujahrFeld = new TextField("Baujahr:");
+        TextField baujahrFeld = new TextField("Baujahr*:");
         baujahrFeld.setValue("");
         baujahrFeld.setDescription("Geben sie das Baujahr des Autos ein.");
 
-        TextArea descrFeld = new TextArea("Beschreibung:");
+        TextArea descrFeld = new TextArea("Beschreibung*:");
         descrFeld.setValue("");
         descrFeld.setDescription("Geben sie eine kurze Beschreibung des Autos an.");
 
         Button abbruch = new Button("Abbrechen");
         abbruch.addClickListener(e-> close());
+        abbruch.setDescription("Klicken sie hier um den Vorgang abzubrechen.");
 
         Button enter = new Button("Auto einstellen");
         enter.addClickListener(e->{
@@ -74,6 +75,7 @@ public class InseratPopUp extends Window {
                 close();
             }
         });
+        enter.setDescription("Klicken sie hier, um den Vorgang abzuschließen.");
 
         HorizontalLayout buttons = new HorizontalLayout();
         buttons.addComponents(enter, abbruch);
@@ -82,5 +84,4 @@ public class InseratPopUp extends Window {
 
         setContent(content);
     }
-
 }
