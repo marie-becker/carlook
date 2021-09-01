@@ -11,7 +11,6 @@ D:\carlook\src\main\java\org\carlook\model\objects\dao\AutoDAO.java
 D:\carlook\src\main\java\org\carlook\services\util\Roles.java
 D:\carlook\src\main\java\org\carlook\services\util\UserBuilder.java
 D:\carlook\src\main\java\org\carlook\services\exceptions\NoSuchUserOrPassword.java
-D:\carlook\src\main\java\org\carlook\tests\LoginTest.java
 D:\carlook\src\main\java\org\carlook\gui\views\StartseiteView.java
 D:\carlook\src\main\java\org\carlook\services\util\Konstanten.java
 D:\carlook\src\main\java\org\carlook\gui\UI\MyUI.java

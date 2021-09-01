@@ -2,11 +2,13 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 # ignore all file for building project in target folder
 target/*
-!target/classes
-
+!target/classes/org/carlook
+target/classes/org/carlook/tests
+src/main/tests
 #Sonarlint
 .idea/sonarlint
 
+.idea
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
